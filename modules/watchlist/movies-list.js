@@ -1,14 +1,45 @@
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../styles/global-styles';
-import { Button } from '@react-navigation/elements';
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Feather from '@expo/vector-icons/Feather';TouchableOpacity
 
 export default function MovieList(){
     const navigation = useNavigation();
+    const [text, onChangeText] = useState('');
+
     return( 
         <View style={globalStyles.container}>
-            <Button onPress={() => navigation.navigate('AddTitle')}>Add</Button>
-            <Text style={globalStyles.title}>MovieList</Text>
+            <View style={globalStyles.listContainer}>
+                <View style={globalStyles.searchFieldWraper}>
+                    <TextInput
+                        onChangeText={onChangeText}
+                        value={text}
+                        placeholder="Search movie"
+                        style={globalStyles.textInput}
+                    />
+                    <TouchableOpacity style={globalStyles.filterButton}>
+                        <Ionicons name="options" size={26} color="#806300" />
+                    </TouchableOpacity>
+                </View>
+                <View style={globalStyles.list}>
+                    <View style={globalStyles.titleIcon}>
+                        <Text style={globalStyles.defaultText}> 12 друзей даунов </Text>
+                    </View>
+                </View>
+            </View>
+            <View style={globalStyles.footer}>
+                <Text style={globalStyles.defaultText}> Amount: 1 </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('AddTitle')} style={globalStyles.addButton} color='#614b00' >
+                    <Feather
+                        name="plus"
+                        size={30}
+                        color="#806300" 
+                    />
+                </TouchableOpacity>
+            </View>
+            
         </View>
     )
 }
